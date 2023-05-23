@@ -1,5 +1,7 @@
 ﻿
+using AutoMapper;
 using CarPoolingApplication.Models;
+using CarPoolingApplication.Models.ViewModels;
 using CarPoolingApplication.Services.Repository.Contracts;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,15 +15,19 @@ namespace CarPoolingApplication.Controllers
 
         private readonly IOfferedRides _dataContext;
 
-        public OfferedRidesController(IOfferedRides dataContext,ILogger<OfferedRidesController> logger)
+        private readonly IMapper _mapper;
+
+        public OfferedRidesController(IOfferedRides dataContext,ILogger<OfferedRidesController> logger,IMapper mapper)
         {
             _dataContext = dataContext;
 
             _logger = logger;
+
+            _mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<OfferedRides>>> GetOfferedRides()
+        public async Task<ActionResult<List<OfferedRidesDTO>>> FetchOfferedRides()
         {
             try
             {
@@ -37,11 +43,11 @@ namespace CarPoolingApplication.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<OfferedRides>> AddRide([FromBody] OfferedRides ride)
+        public async Task<ActionResult<OfferedRidesDTO>> AddRide([FromBody] OfferedRidesDTO ride)
         {
             try
             {
-                var data = await _dataContext.AddRide(ride);
+                var data = await _dataContext.AddRide(_mapper.Map<OfferedRides>(ride));
 
                 if (data == null)
                 {
@@ -59,7 +65,7 @@ namespace CarPoolingApplication.Controllers
         }
 
         [HttpGet("{offeringId}")]
-        public async Task<ActionResult<OfferedRides>> GetRideById([FromRoute] int offeringId)
+        public async Task<ActionResult<OfferedRidesDTO>> FetchRideById([FromRoute] int offeringId)
         {
             try
             {
@@ -75,7 +81,7 @@ namespace CarPoolingApplication.Controllers
             }
         }
 
-        [HttpPut("{offeringId}")]
+      /*  [HttpPut("{offeringId}")]
         public async Task<ActionResult<OfferedRides>> UpdateRide([FromBody] OfferedRides request, [FromRoute] int offeringId)
         {
             try
@@ -107,6 +113,6 @@ namespace CarPoolingApplication.Controllers
 
                 return null;
             }
-        }
+        }*/
     }
 }

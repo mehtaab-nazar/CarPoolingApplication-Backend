@@ -1,6 +1,7 @@
 ﻿
+using AutoMapper;
 using CarPoolingApplication.Models;
-using CarPoolingApplication.Services;
+using CarPoolingApplication.Models.ViewModels;
 using CarPoolingApplication.Services.Repository.Contracts;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,15 +15,19 @@ namespace CarPoolingApplication.Controllers
 
         private readonly ILogger<BookedRidesController> _logger;
 
-        public BookedRidesController(IBookedRides dataContext,ILogger<BookedRidesController> logger)
+        private readonly IMapper _mapper;
+
+        public BookedRidesController(IBookedRides dataContext,ILogger<BookedRidesController> logger,IMapper mapper)
         {
             _dataContext = dataContext;
 
             _logger = logger;
+
+            _mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<BookedRides>>> GetBookedRides()
+        public async Task<ActionResult<List<BookedRidesDTO>>> FetchBookedRides()
         {
             try
             {
@@ -39,11 +44,11 @@ namespace CarPoolingApplication.Controllers
         }
 
         [HttpPost("GetDetails")]
-        public async Task<ActionResult<OfferedRides>> GetOfferedRides([FromBody] BookedRides ride)
+        public async Task<ActionResult<OfferedRidesDTO>> FetchMatchingRides([FromBody] BookedRidesDTO ride)
         { 
             try
             {
-                var data = await _dataContext.GetOfferedRides(ride);
+                var data = await _dataContext.GetMatchingRides(ride);
 
                 return Ok(data);
             }
@@ -56,11 +61,11 @@ namespace CarPoolingApplication.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<BookedRides>> AddRide([FromBody] BookedRides ride)
+        public async Task<ActionResult<BookedRidesDTO>> AddRide([FromBody] BookedRidesDTO ride)
         {
            try
            {
-             var data = await _dataContext.AddRide(ride);
+             var data = await _dataContext.AddRide(_mapper.Map<BookedRides>(ride));
 
               if (data == null)
               {
@@ -77,13 +82,13 @@ namespace CarPoolingApplication.Controllers
         }
 
         [HttpGet("{bookingId}")]
-        public async Task<ActionResult<BookedRides>> GetRideById([FromRoute] int bookingId)
+        public async Task<ActionResult<BookedRidesDTO>> FetchRideById([FromRoute] int bookingId)
         {
             try 
             {
                 var data = await _dataContext.GetRideById(bookingId);
 
-                return Ok(data.Value);
+                return Ok(_mapper.Map<BookedRidesDTO>(data.Value));
             }
             catch(Exception ex)
             {
@@ -93,7 +98,7 @@ namespace CarPoolingApplication.Controllers
             }
         }
 
-        [HttpPut("{bookingId}")]
+       /* [HttpPut("{bookingId}")]
         public async Task<ActionResult<BookedRides>> UpdateRide([FromBody] BookedRides request,[FromRoute] int bookingId)
         {
             try
@@ -125,6 +130,6 @@ namespace CarPoolingApplication.Controllers
 
                 return null;
             }
-        }
+        }*/
     }
 }

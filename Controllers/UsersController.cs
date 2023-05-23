@@ -1,5 +1,7 @@
 ﻿
+using AutoMapper;
 using CarPoolingApplication.Models;
+using CarPoolingApplication.Models.ViewModels;
 using CarPoolingApplication.Services.Repository.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -14,20 +16,23 @@ namespace CarPoolingApplication.Controllers
 
         private readonly ILogger<UsersController> _logger;
 
-        public UsersController(IUsers data, ILogger<UsersController> logger)
+        private readonly IMapper _mapper;
+
+        public UsersController(IUsers data, ILogger<UsersController> logger,IMapper mapper)
         {
             _data = data;
 
             _logger = logger;
+
+            _mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<User>>> GetAllUsers()
+        public async Task<ActionResult<List<User>>> FetchAllUsers()
         {
             try
-            { 
+            {
                 var users = await _data.GetUsers();
-
                 return Ok(users);
             }
             catch(Exception ex)
@@ -39,13 +44,13 @@ namespace CarPoolingApplication.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddUser([FromBody] User userDetails)
+        public async Task<ActionResult> AddUser([FromBody] UserDTO userDetails)
         {
             try
             {
-                var data = await _data.AddUser(userDetails);
+                var data = await _data.AddUser(_mapper.Map<User>(userDetails));
 
-                if (data == null)
+                if (data == null) 
                 {
                     _logger.LogError("User cannot be added");
                 }
@@ -62,7 +67,7 @@ namespace CarPoolingApplication.Controllers
 
         [HttpGet("{id}")]
         [Authorize]
-        public async Task<ActionResult<User>> GetUserById([FromRoute] string id)
+        public async Task<ActionResult<UserDTO>> FetchUserById([FromRoute] string id)
         {
             try
             {
@@ -78,7 +83,7 @@ namespace CarPoolingApplication.Controllers
             }
         }
 
-        [HttpPut("{id}")]
+        /*[HttpPut("{id}")]
         public async Task<ActionResult<User>> UpdateUser([FromBody] User request,[FromRoute] int id)
         {
             try
@@ -110,10 +115,10 @@ namespace CarPoolingApplication.Controllers
 
                 return null;
             }
-        }
+        }*/
 
         [HttpGet("offered/{id}")]
-        public async Task<ActionResult<List<BookedRides>>> GetOfferedRides([FromRoute] string id)
+        public async Task<ActionResult<List<OfferedRidesDTO>>> FetchOfferedRides([FromRoute] string id)
         {
             try
             {
@@ -130,7 +135,7 @@ namespace CarPoolingApplication.Controllers
         }
 
         [HttpGet("booked/{id}")]
-        public async Task<ActionResult<List<OfferedRides>>> GetBookedRides([FromRoute] string id)
+        public async Task<ActionResult<List<BookedRidesDTO>>> FetchBookedRides([FromRoute] string id)
         {
             try
             {
