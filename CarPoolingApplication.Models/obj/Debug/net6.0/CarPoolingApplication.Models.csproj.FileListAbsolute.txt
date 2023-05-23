@@ -1,0 +1,12 @@
+C:\Users\mehta\OneDrive\Desktop\CarPoolingApp-Backend\CarPoolingApplication.Models\bin\Debug\net6.0\CarPoolingApplication.Models.deps.json
+C:\Users\mehta\OneDrive\Desktop\CarPoolingApp-Backend\CarPoolingApplication.Models\bin\Debug\net6.0\CarPoolingApplication.Models.dll
+C:\Users\mehta\OneDrive\Desktop\CarPoolingApp-Backend\CarPoolingApplication.Models\bin\Debug\net6.0\CarPoolingApplication.Models.pdb
+C:\Users\mehta\OneDrive\Desktop\CarPoolingApp-Backend\CarPoolingApplication.Models\obj\Debug\net6.0\CarPoolingApplication.Models.csproj.AssemblyReference.cache
+C:\Users\mehta\OneDrive\Desktop\CarPoolingApp-Backend\CarPoolingApplication.Models\obj\Debug\net6.0\CarPoolingApplication.Models.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\mehta\OneDrive\Desktop\CarPoolingApp-Backend\CarPoolingApplication.Models\obj\Debug\net6.0\CarPoolingApplication.Models.AssemblyInfoInputs.cache
+C:\Users\mehta\OneDrive\Desktop\CarPoolingApp-Backend\CarPoolingApplication.Models\obj\Debug\net6.0\CarPoolingApplication.Models.AssemblyInfo.cs
+C:\Users\mehta\OneDrive\Desktop\CarPoolingApp-Backend\CarPoolingApplication.Models\obj\Debug\net6.0\CarPoolingApplication.Models.csproj.CoreCompileInputs.cache
+C:\Users\mehta\OneDrive\Desktop\CarPoolingApp-Backend\CarPoolingApplication.Models\obj\Debug\net6.0\CarPoolingApplication.Models.dll
+C:\Users\mehta\OneDrive\Desktop\CarPoolingApp-Backend\CarPoolingApplication.Models\obj\Debug\net6.0\refint\CarPoolingApplication.Models.dll
+C:\Users\mehta\OneDrive\Desktop\CarPoolingApp-Backend\CarPoolingApplication.Models\obj\Debug\net6.0\CarPoolingApplication.Models.pdb
+C:\Users\mehta\OneDrive\Desktop\CarPoolingApp-Backend\CarPoolingApplication.Models\obj\Debug\net6.0\ref\CarPoolingApplication.Models.dll
