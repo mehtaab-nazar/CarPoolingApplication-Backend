@@ -40,7 +40,7 @@ try
     builder.Services.AddCors(options => options.AddPolicy(name: "AllowOrigin",
         policy =>
         {
-            policy.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
+            policy.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
         }));
     builder.Services.AddScoped<IUsers, UsersService>();
     builder.Services.AddScoped<IOfferedRides, OfferedRidesService>();
